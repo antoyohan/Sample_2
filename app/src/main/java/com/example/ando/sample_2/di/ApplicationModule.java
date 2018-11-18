@@ -27,7 +27,7 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    NetworkMonitor getNetworkMonitor() {
+    public static NetworkMonitor getNetworkMonitor() {
         return new NetworkChecker();
     }
 

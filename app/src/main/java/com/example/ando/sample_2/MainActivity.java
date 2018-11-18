@@ -1,6 +1,7 @@
 package com.example.ando.sample_2;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.ando.sample_2.di.ActivityModule;
@@ -30,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
         DaggerActivityComponent.builder().
                 applicationComponent(((SampleApplication) getApplication()).getmApplicationComponent()).
                 activityModule(new ActivityModule(this)).build().inject(this);
-        mainActivityViewModel.setApplication((SampleApplication) getApplication());
+        launchFragment();
+    }
+
+    private void launchFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(R.id.container_frame, BlankFragment.newInstance(new Employee())).commitNow();
     }
 
 }

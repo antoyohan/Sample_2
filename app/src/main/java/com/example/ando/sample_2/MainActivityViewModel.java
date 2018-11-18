@@ -15,11 +15,9 @@ public class MainActivityViewModel {
     Gson gson;
     private SampleApplication mApplication;
 
-    public MainActivityViewModel(Context context) {
+    public MainActivityViewModel(MainActivity mainActivity, SampleApplication application) {
+        mApplication = application;
         mApplication.getmApplicationComponent().inject(this);
     }
 
-    public void setApplication(SampleApplication application) {
-        mApplication = application;
-    }
 }
