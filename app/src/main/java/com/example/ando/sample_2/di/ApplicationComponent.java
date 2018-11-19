@@ -16,14 +16,7 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
-    @ApplicationContext
-    Context appContext();
-
-    SampleApplication getApp();
-
-    NetworkMonitor networkMonitor();
-
-    Gson gson();
-
     void inject(MainActivityViewModel mainActivityViewModel);
+
+    ActivityComponent plus(ActivityModule activityModule);
 }

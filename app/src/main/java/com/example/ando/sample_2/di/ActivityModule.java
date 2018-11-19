@@ -2,6 +2,7 @@ package com.example.ando.sample_2.di;
 
 import com.example.ando.sample_2.MainActivity;
 import com.example.ando.sample_2.MainActivityViewModel;
+import com.example.ando.sample_2.SampleApplication;
 import com.example.ando.sample_2.models.Employee;
 import com.example.ando.sample_2.models.Vehicle;
 
@@ -25,13 +26,13 @@ public class ActivityModule {
     @ActivityScope
     @Provides
     Vehicle getVehicle() {
-        return getVehicle();
+        return new Vehicle();
     }
 
     @ActivityScope
     @Provides
-    MainActivityViewModel getViewModel(MainActivity context) {
-        return new MainActivityViewModel(context);
+    MainActivityViewModel getViewModel(SampleApplication application) {
+        return new MainActivityViewModel(application);
     }
 
     @ActivityScope
