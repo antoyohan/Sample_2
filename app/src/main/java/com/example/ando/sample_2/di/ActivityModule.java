@@ -1,20 +1,19 @@
 package com.example.ando.sample_2.di;
 
+import android.content.Context;
+
 import com.example.ando.sample_2.MainActivity;
 import com.example.ando.sample_2.MainActivityViewModel;
 import com.example.ando.sample_2.models.Employee;
 import com.example.ando.sample_2.models.Vehicle;
+import com.example.ando.sample_2.utils.NetworkMonitor;
+import com.google.gson.Gson;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class ActivityModule {
-    MainActivity mainActivity;
-
-    public ActivityModule(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-    }
 
     @ActivityScope
     @Provides
@@ -25,18 +24,15 @@ public class ActivityModule {
     @ActivityScope
     @Provides
     Vehicle getVehicle() {
-        return getVehicle();
+        return new Vehicle();
     }
+
+
+
 
     @ActivityScope
     @Provides
-    MainActivityViewModel getViewModel(MainActivity context) {
-        return new MainActivityViewModel(context);
-    }
-
-    @ActivityScope
-    @Provides
-    MainActivity privideMainActivity(){
+    MainActivity privideMainActivity(MainActivity mainActivity) {
         return mainActivity;
     }
 }

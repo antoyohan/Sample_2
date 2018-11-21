@@ -1,7 +1,5 @@
 package com.example.ando.sample_2.di;
 
-import android.content.Context;
-
 import com.example.ando.sample_2.SampleApplication;
 import com.example.ando.sample_2.utils.NetworkChecker;
 import com.example.ando.sample_2.utils.NetworkMonitor;
@@ -9,26 +7,16 @@ import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = ApplicationModule.Bindings.class)
 public class ApplicationModule {
-    private SampleApplication mContext;
-
-    public ApplicationModule(SampleApplication context) {
-        mContext = context;
-    }
 
     @Provides
-    public SampleApplication getApp() {
-        return mContext;
-    }
-
-    @Singleton
-    @Provides
-    NetworkMonitor getNetworkMonitor() {
-        return new NetworkChecker();
+    public SampleApplication getApp(SampleApplication application) {
+        return application;
     }
 
     @Singleton
@@ -37,10 +25,10 @@ public class ApplicationModule {
         return new Gson();
     }
 
-    @Singleton
-    @Provides
-    @ApplicationContext
-    Context getAppplicationContext() {
-        return mContext;
+
+    @Module
+    public interface Bindings {
+        @Binds
+        NetworkMonitor bindToNetworkMonitor(NetworkChecker networkChecker);
     }
 }

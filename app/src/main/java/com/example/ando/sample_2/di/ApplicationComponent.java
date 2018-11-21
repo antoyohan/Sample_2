@@ -2,28 +2,29 @@ package com.example.ando.sample_2.di;
 
 import android.content.Context;
 
-import com.example.ando.sample_2.MainActivity;
-import com.example.ando.sample_2.MainActivityViewModel;
 import com.example.ando.sample_2.SampleApplication;
-import com.example.ando.sample_2.utils.NetworkMonitor;
-import com.google.gson.Gson;
 
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 
 @Singleton
-@Component(modules = ApplicationModule.class)
+@Component(modules = {AndroidInjectionModule.class, ApplicationModule.class,ActivityBuilder.class})
 public interface ApplicationComponent {
 
-    @ApplicationContext
-    Context appContext();
+    void inject(SampleApplication application);
 
-    SampleApplication getApp();
+    @Component.Builder
+    interface Builder{
+        @BindsInstance
+        Builder setApplication(SampleApplication application);
+        @BindsInstance
+        Builder setAppContext(Context appContext);
 
-    NetworkMonitor networkMonitor();
+        ApplicationComponent create();
+    }
 
-    Gson gson();
 
-    void inject(MainActivityViewModel mainActivityViewModel);
 }
